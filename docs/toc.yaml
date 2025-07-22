@@ -1,0 +1,35 @@
+title: API НКРЯ
+href: index.yaml
+
+items:
+  - name: Как начать использовать API НКРЯ?
+    href: how-to-start.md
+    mode: link
+  - name: Справочник API
+    labeled: true
+    include:
+      path: about-api/toc.yaml
+      mode: link
+  - name: OpenAPI
+    include:
+      path: openapi
+      includers:
+        - name: openapi
+          input: openapi.yaml
+      mode: link
+
+navigation:
+  logo:
+    url: 'https://ruscorpora.ru/'
+    text: 'Ruscorpora'
+  header:
+    leftItems:
+      - text: 'Личный кабинет'
+        type: 'link'
+        url: 'https://ruscorpora.ru/accounts/profile/for-devs'
+      - text: 'Swagger'
+        type: 'link'
+        url: 'https://ruscorpora.ru/api/v1/docs'
+    rightItems:
+      - type: controls
+      - type: search

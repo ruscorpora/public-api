@@ -1,0 +1,45 @@
+title: Справочник API
+href: index.yaml
+items:
+  # - name: Обзор
+  #   href: index.md
+  - name: Авторизация
+    href: auth.md
+  - name: Формат запросов
+    href: common-format.md
+  - name: Клиенты
+    href: clients.md
+  - name: Параметры корпуса
+    href: config/index.md
+  - name: Портрет слова
+    href: word-portrait/index.md
+    items:
+      - name: Параметры запроса
+        href: word-portrait/search-params.md
+      - name: Сценарии использования
+        labeled: true
+        items:
+          - name: Примеры употребления
+            href: word-portrait/use-cases/concordance.md
+          - name: Характеристики слова
+            href: word-portrait/use-cases/word-info.md
+          - name: Статистика
+            href: word-portrait/use-cases/stats.md
+          - name: Примеры словоупотребления
+            href: word-portrait/use-cases/usage-examples.md
+          - name: Скетчи слова
+            href: word-portrait/use-cases/sketches.md
+          - name: Частотность
+            href: word-portrait/use-cases/frequency.md
+          - name: Похожие слова
+            href: word-portrait/use-cases/similar-words.md
+          - name: Морфемный разбор
+            href: word-portrait/use-cases/morph.md
+          - name: Словообразование
+            href: word-portrait/use-cases/word-forms.md
+          - name: Однокоренные
+            href: word-portrait/use-cases/cognates.md
+          - name: Первое упоминание
+            href: word-portrait/use-cases/first-mention.md
+          # - name: Толкование
+          #   href: word-portrait/use-cases/meaning.md

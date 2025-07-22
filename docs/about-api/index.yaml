@@ -1,0 +1,8 @@
+title: Справочник API
+links:
+  - title: Обзор
+    href: index.md
+  - title: Авторизация
+    href: auth.md
+  - title: Формат запросов
+    href: common-format.md

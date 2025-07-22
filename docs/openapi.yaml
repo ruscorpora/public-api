@@ -1,0 +1,371 @@
+components:
+  schemas:
+    Corpus:
+      properties:
+        lang:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Использование возможно только для параллельных корпусов с кодом
+            PARA. Поддерживаемый формат [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3)
+          example: null
+          title: Язык параллельного корпуса
+        type:
+          $ref: '#/components/schemas/CorpusTypeEnum'
+          description: Индентификатор корпуса
+          example: MAIN
+      required:
+      - type
+      title: Corpus
+      type: object
+    CorpusStatSchema:
+      properties:
+        corpus:
+          $ref: '#/components/schemas/Corpus'
+        subStats:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/DisambStatSchema'
+            type: array
+          - type: 'null'
+          title: Substats
+        vals:
+          $ref: '#/components/schemas/StatValuesSchema'
+      required:
+      - corpus
+      - vals
+      title: CorpusStatSchema
+      type: object
+    CorpusTypeEnum:
+      enum:
+      - MAIN
+      - SYNTAX
+      - PAPER
+      - REGIONAL
+      - PARA
+      - MULTI
+      - SCHOOL
+      - DIALECT
+      - POETIC
+      - SPOKEN
+      - ACCENT
+      - MURCO
+      - MULTIPARC_RUS
+      - MULTIPARC
+      - OLD_RUS
+      - BIRCHBARK
+      - MID_RUS
+      - ORTHLIB
+      - PANCHRON
+      - KIDS
+      - CLASSICS
+      - BLOGS
+      - EPIGRAPHICA
+      title: CorpusTypeEnum
+      type: string
+    DisambStatSchema:
+      properties:
+        disamb:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/DisambiguationEnum'
+            type: array
+          - type: 'null'
+          title: Disamb
+        vals:
+          $ref: '#/components/schemas/StatValuesSchema'
+      required:
+      - vals
+      title: DisambStatSchema
+      type: object
+    DisambiguationEnum:
+      enum:
+      - DISAMBIGUATION_DEFAULT
+      - MANUALLY_DISAMB
+      - AUTO_DISAMB
+      - NOT_DISAMB
+      - NO_GRAMM_MARKUP
+      title: DisambiguationEnum
+      type: string
+    PortraitQuery:
+      properties:
+        corpus:
+          allOf:
+          - $ref: '#/components/schemas/Corpus'
+          default:
+            lang: null
+            type: MAIN
+          description: Корпус, в котором осуществляется поиск и анализ. По умолчанию
+            основной корпус
+          title: Корпус
+        lemma:
+          description: Искомая лексема (обязательно в словарной форме). В Портрете
+            слова нельзя искать больше одной леммы. Также недопустимо использование
+            операторов - таких, как * или -.
+          example: печь
+          minLength: 1
+          title: Лемма
+          type: string
+        pos:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Часть речи (например, 'S', 'V'). Если не задана, учитываются
+            все части речи. Список доступных частей речи зависит от выбранного корпуса
+          title: Часть речи
+        resultType:
+          default:
+          - PORTRAIT_WORD_INFO
+          description: Типы данных портрета, которые необходимо получить. Можно указать
+            несколько типов в одном запросе.
+          items:
+            $ref: '#/components/schemas/PortraitResultTypeEnum'
+          title: Resulttype
+          type: array
+        seed:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Случайное число, влияющее на устойчивость случайной сортировки
+            результатов
+          example: 57945
+          title: Seed
+        similarCategories:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          description: 'TDC: список категорий, по которым сгруппированы похожие слова'
+          example: null
+          title: Similarcategories
+        statFields:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          description: Список атрибутов по которым необходимо получить статистику.
+            Обязателен, если в result_type включён PORTRAIT_STATS
+          example:
+          - created
+          title: Statfields
+      title: PortraitQuery
+      type: object
+    PortraitResultTypeEnum:
+      enum:
+      - PORTRAIT_WORD_INFO
+      - PORTRAIT_CONCORDANCE
+      - PORTRAIT_STATS
+      - PORTRAIT_SKETCH
+      - PORTRAIT_FREQUENCY
+      - PORTRAIT_SIMILAR
+      - PORTRAIT_MORPHEME
+      - PORTRAIT_WORDFORMS
+      - PORTRAIT_COGNATES
+      - PORTRAIT_MEANING
+      - PORTRAIT_FIRST_MENTION
+      title: PortraitResultTypeEnum
+      type: string
+    StatValuesSchema:
+      properties:
+        sentenceCount:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Sentencecount
+        textCount:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Textcount
+        wordUsageCount:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Wordusagecount
+      title: StatValuesSchema
+      type: object
+    User:
+      properties:
+        email:
+          title: Email
+          type: string
+      required:
+      - email
+      title: User
+      type: object
+  securitySchemes:
+    AsyncAuthBearer:
+      scheme: bearer
+      type: http
+info:
+  description: API для работы с Национальным корпусом русского языка
+  title: НКРЯ API
+  version: 1.0.0
+openapi: 3.1.0
+paths:
+  /api/v1/auth/check-authenticated/:
+    get:
+      description: Отправив запрос на этот эндпоинт, можно проверить, авторизован
+        ли вы или нет
+      operationId: ruscorpora_public_api_v1_auth_api_is_authenticated
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response
+                type: boolean
+          description: OK
+      security:
+      - AsyncAuthBearer: []
+      summary: Проверка авторизации
+      tags:
+      - Авторизация
+  /api/v1/auth/me/:
+    get:
+      operationId: ruscorpora_public_api_v1_auth_api_me
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+      security:
+      - AsyncAuthBearer: []
+      summary: Получение информации о пользователе
+      tags:
+      - Авторизация
+  /api/v1/config/:
+    get:
+      description: Отправив запрос на этот эндпоинт, можно проверить, авторизован
+        ли вы или нет
+      operationId: ruscorpora_public_api_v1_config_api_corpora_config
+      parameters:
+      - description: Идентификатор корпуса
+        examples:
+          default:
+            summary: Основной корпус
+            value: '{"type":"MAIN"}'
+          para-eng:
+            summary: Параллельный английский корпус
+            value: '{"type":"PARA","lang":"eng"}'
+        in: query
+        name: corpus
+        required: true
+        schema:
+          description: Идентификатор корпуса
+          examples:
+            default:
+              summary: Основной корпус
+              value: '{"type":"MAIN"}'
+            para-eng:
+              summary: Параллельный английский корпус
+              value: '{"type":"PARA","lang":"eng"}'
+          title: Corpus
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - AsyncAuthBearer: []
+      summary: Конфиг корпуса
+      tags:
+      - Параметры корпуса
+  /api/v1/stats/:
+    get:
+      description: 'Возвращает статистику по выбранному корпусу.
+
+        Можно получить число словоупотреблений, предложений и текстов.'
+      operationId: ruscorpora_public_api_v1_stats_api_get_stats
+      parameters:
+      - description: Идентификатор корпуса
+        examples:
+          default:
+            summary: Основной корпус
+            value: '{"type":"MAIN"}'
+          para-eng:
+            summary: Параллельный английский корпус
+            value: '{"type":"PARA","lang":"eng"}'
+        in: query
+        name: corpus
+        required: true
+        schema:
+          description: Идентификатор корпуса
+          examples:
+            default:
+              summary: Основной корпус
+              value: '{"type":"MAIN"}'
+            para-eng:
+              summary: Параллельный английский корпус
+              value: '{"type":"PARA","lang":"eng"}'
+          title: Corpus
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CorpusStatSchema'
+          description: OK
+      security:
+      - AsyncAuthBearer: []
+      summary: Статистика в выбранном корпусе
+      tags:
+      - Статистика
+  /api/v1/word-portrait/:
+    get:
+      description: 'Портрет слова помогает анализировать различные характеристики
+        слова на материале конкретного корпуса.
+
+        Используя API портрета слова, можно получить всю информацию, доступную в [интерфейсе
+        НКРЯ](https://ruscorpora.ru/page/tool-word/), такую как
+
+        грамматические и семантические характеристики слова, частотность, похожие
+        слова и другое.'
+      operationId: word-portrait
+      parameters:
+      - examples:
+          default:
+            summary: Печь в Основном корпусе
+            value: '{"lemma":"печь","corpus":{"type":"MAIN"},"seed":-377049459,"resultType":["PORTRAIT_WORD_INFO"]}'
+        in: query
+        name: query
+        required: true
+        schema:
+          examples:
+            default:
+              summary: Печь в Основном корпусе
+              value: '{"lemma":"печь","corpus":{"type":"MAIN"},"seed":-377049459,"resultType":["PORTRAIT_WORD_INFO"]}'
+          title: Query
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - AsyncAuthBearer: []
+      summary: Get Word Portrait
+      tags:
+      - Портрет слова
+    post:
+      operationId: word-portrait-as-post
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PortraitQuery'
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+      - AsyncAuthBearer: []
+      summary: Get Word Portrait As Post
+      tags:
+      - Портрет слова
+servers: []

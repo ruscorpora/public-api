@@ -1,0 +1,8 @@
+node_modules/
+docs-html/
+.DS_Store
+dist/
+.env
+.venv
+__pycache__/
+openapi.json
