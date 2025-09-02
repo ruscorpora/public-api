@@ -1,5 +1,252 @@
 components:
   schemas:
+    AttrValue:
+      properties:
+        valAuthor:
+          anyOf:
+          - $ref: '#/components/schemas/AttrValueAuthor'
+          - type: 'null'
+        valDateRange:
+          anyOf:
+          - $ref: '#/components/schemas/AttrValueDateRange'
+          - type: 'null'
+        valInt:
+          anyOf:
+          - $ref: '#/components/schemas/AttrValueInt'
+          - type: 'null'
+        valMorpheme:
+          anyOf:
+          - $ref: '#/components/schemas/AttrValueMorpheme'
+          - type: 'null'
+        valOptions:
+          anyOf:
+          - $ref: '#/components/schemas/AttrValueOptions'
+          - type: 'null'
+        valPairStrings:
+          anyOf:
+          - $ref: '#/components/schemas/AttrValuePairStrings'
+          - type: 'null'
+        valString:
+          anyOf:
+          - $ref: '#/components/schemas/AttrValueString'
+          - type: 'null'
+        valStringWeighted:
+          anyOf:
+          - $ref: '#/components/schemas/AttrValueStringWeighted'
+          - type: 'null'
+      title: AttrValue
+      type: object
+    AttrValueAuthor:
+      properties:
+        v:
+          $ref: '#/components/schemas/Date'
+      required:
+      - v
+      title: AttrValueAuthor
+      type: object
+    AttrValueDateRange:
+      properties:
+        v:
+          $ref: '#/components/schemas/DateRange'
+      required:
+      - v
+      title: AttrValueDateRange
+      type: object
+    AttrValueInt:
+      properties:
+        v:
+          title: V
+          type: integer
+      required:
+      - v
+      title: AttrValueInt
+      type: object
+    AttrValueMorpheme:
+      properties:
+        type:
+          $ref: '#/components/schemas/MorphemeType'
+        value:
+          title: Value
+          type: string
+      required:
+      - type
+      - value
+      title: AttrValueMorpheme
+      type: object
+    AttrValueOptions:
+      properties:
+        v:
+          $ref: '#/components/schemas/OptionBlock'
+      required:
+      - v
+      title: AttrValueOptions
+      type: object
+    AttrValuePairStrings:
+      properties:
+        f:
+          title: F
+          type: string
+        s:
+          title: S
+          type: string
+      required:
+      - f
+      - s
+      title: AttrValuePairStrings
+      type: object
+    AttrValueString:
+      properties:
+        fontAlias:
+          anyOf:
+          - $ref: '#/components/schemas/FontAlias'
+          - type: 'null'
+        v:
+          title: V
+          type: string
+      required:
+      - v
+      title: AttrValueString
+      type: object
+    AttrValueStringWeighted:
+      properties:
+        v:
+          title: V
+          type: string
+        weight:
+          title: Weight
+          type: number
+      required:
+      - v
+      - weight
+      title: AttrValueStringWeighted
+      type: object
+    CheckConditionValue:
+      properties:
+        v:
+          title: V
+          type: boolean
+      required:
+      - v
+      title: CheckConditionValue
+      type: object
+    Combine:
+      enum:
+      - 0
+      - 1
+      - 2
+      title: Combine
+      type: integer
+    ConcordanceQueryResult:
+      properties:
+        corpusStats:
+          anyOf:
+          - $ref: '#/components/schemas/StatValues'
+          - type: 'null'
+          title: Статистика корпуса
+        groups:
+          items:
+            $ref: '#/components/schemas/DocumentGroup'
+          title: Groups
+          type: array
+        pagination:
+          $ref: '#/components/schemas/ResultPagination'
+        queryStats:
+          anyOf:
+          - $ref: '#/components/schemas/StatValues'
+          - type: 'null'
+          title: Статистика запроса
+        sorting:
+          $ref: '#/components/schemas/ResultSorting'
+        subcorpStats:
+          anyOf:
+          - $ref: '#/components/schemas/StatValues'
+          - type: 'null'
+          title: Статистика подкорпуса
+      required:
+      - groups
+      - sorting
+      - pagination
+      title: ConcordanceQueryResult
+      type: object
+    ConcordanceSnippet:
+      properties:
+        completeContext:
+          default: false
+          title: Completecontext
+          type: boolean
+        expandedNewPage:
+          default: false
+          title: Expandednewpage
+          type: boolean
+        isVerse:
+          default: false
+          title: Isverse
+          type: boolean
+        langInfo:
+          anyOf:
+          - $ref: '#/components/schemas/LangInfo'
+          - type: 'null'
+        nextSnippetSource:
+          anyOf:
+          - $ref: '#/components/schemas/DiapSource'
+          - type: 'null'
+        prevSnippetSource:
+          anyOf:
+          - $ref: '#/components/schemas/DiapSource'
+          - type: 'null'
+        previousSnippetContinuation:
+          default: false
+          title: Previoussnippetcontinuation
+          type: boolean
+        sequences:
+          items:
+            $ref: '#/components/schemas/WordSequence'
+          title: Sequences
+          type: array
+        source:
+          $ref: '#/components/schemas/DiapSource'
+        syntaxStructure:
+          anyOf:
+          - $ref: '#/components/schemas/SyntaxStructure'
+          - type: 'null'
+      required:
+      - sequences
+      - source
+      title: ConcordanceSnippet
+      type: object
+    ConditionValue:
+      properties:
+        check:
+          anyOf:
+          - $ref: '#/components/schemas/CheckConditionValue'
+          - type: 'null'
+        date:
+          anyOf:
+          - $ref: '#/components/schemas/DateConditionValue'
+          - type: 'null'
+        dateRange:
+          anyOf:
+          - $ref: '#/components/schemas/DateRangeConditionValue'
+          - type: 'null'
+        fieldName:
+          title: Имя атрибута, по которому вы выполняете поиск
+          type: string
+        int:
+          anyOf:
+          - $ref: '#/components/schemas/IntConditionValue'
+          - type: 'null'
+        intRange:
+          anyOf:
+          - $ref: '#/components/schemas/IntRangeConditionValue'
+          - type: 'null'
+        text:
+          anyOf:
+          - $ref: '#/components/schemas/TextConditionValue'
+          - type: 'null'
+      required:
+      - fieldName
+      title: ConditionValue
+      type: object
     Corpus:
       properties:
         lang:
@@ -8,7 +255,6 @@ components:
           - type: 'null'
           description: Использование возможно только для параллельных корпусов с кодом
             PARA. Поддерживаемый формат [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3)
-          example: null
           title: Язык параллельного корпуса
         type:
           $ref: '#/components/schemas/CorpusTypeEnum'
@@ -63,6 +309,74 @@ components:
       - EPIGRAPHICA
       title: CorpusTypeEnum
       type: string
+    Date:
+      properties:
+        day:
+          title: Day
+          type: integer
+        month:
+          title: Month
+          type: integer
+        year:
+          title: Year
+          type: integer
+      required:
+      - year
+      - month
+      - day
+      title: Date
+      type: object
+    DateConditionValue:
+      properties:
+        v:
+          $ref: '#/components/schemas/Date'
+      required:
+      - v
+      title: DateConditionValue
+      type: object
+    DateRange:
+      properties:
+        end:
+          $ref: '#/components/schemas/Date'
+        start:
+          $ref: '#/components/schemas/Date'
+      required:
+      - start
+      - end
+      title: DateRange
+      type: object
+    DateRangeConditionValue:
+      properties:
+        begin:
+          anyOf:
+          - $ref: '#/components/schemas/Date'
+          - type: 'null'
+        end:
+          anyOf:
+          - $ref: '#/components/schemas/Date'
+          - type: 'null'
+        matching:
+          allOf:
+          - $ref: '#/components/schemas/IntRangeMathingType'
+          default: INT_RANGE_MATCHING_TYPE_DEFAULT
+      title: DateRangeConditionValue
+      type: object
+    DiapSource:
+      properties:
+        docSource:
+          anyOf:
+          - $ref: '#/components/schemas/DocSource'
+          - type: 'null'
+        end:
+          default: 0
+          title: End
+          type: integer
+        start:
+          default: 0
+          title: Start
+          type: integer
+      title: DiapSource
+      type: object
     DisambStatSchema:
       properties:
         disamb:
@@ -87,6 +401,369 @@ components:
       - NO_GRAMM_MARKUP
       title: DisambiguationEnum
       type: string
+    DocSource:
+      properties:
+        docId:
+          title: Docid
+          type: string
+      required:
+      - docId
+      title: DocSource
+      type: object
+    Document:
+      properties:
+        info:
+          $ref: '#/components/schemas/DocumentInfo'
+        snippetGroups:
+          items:
+            $ref: '#/components/schemas/SnippetGroup'
+          title: Snippetgroups
+          type: array
+      required:
+      - info
+      title: Document
+      type: object
+    DocumentGroup:
+      properties:
+        docs:
+          items:
+            $ref: '#/components/schemas/Document'
+          title: Docs
+          type: array
+      required:
+      - docs
+      title: DocumentGroup
+      type: object
+    DocumentInfo:
+      properties:
+        allExamplesNum:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          default: 0
+          title: Allexamplesnum
+        docExplainInfo:
+          anyOf:
+          - $ref: '#/components/schemas/ExplainResult'
+          - type: 'null'
+        gestures:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Gestures
+        homonymyStatus:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Homonymystatus
+        showAllExamples:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: false
+          title: Showallexamples
+        showFullText:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: false
+          title: Showfulltext
+        showStructure:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: false
+          title: Showstructure
+        source:
+          $ref: '#/components/schemas/DocSource'
+        title:
+          title: Title
+          type: string
+      required:
+      - title
+      - source
+      title: DocumentInfo
+      type: object
+    ExplainField:
+      properties:
+        externalUrl:
+          title: Externalurl
+          type: string
+        fontAlias:
+          anyOf:
+          - $ref: '#/components/schemas/FontAlias'
+          - type: 'null'
+        isNeural:
+          default: false
+          title: Isneural
+          type: boolean
+        level:
+          title: Level
+        name:
+          title: Name
+          type: string
+        value:
+          items:
+            $ref: '#/components/schemas/AttrValue'
+          title: Value
+          type: array
+      required:
+      - name
+      - value
+      title: ExplainField
+      type: object
+    ExplainParsing:
+      properties:
+        mainParsing:
+          default: false
+          title: Mainparsing
+          type: boolean
+        parsingFields:
+          items:
+            $ref: '#/components/schemas/ExplainField'
+          title: Parsingfields
+          type: array
+        pos:
+          title: Pos
+          type: string
+      title: ExplainParsing
+      type: object
+    ExplainResult:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/ExplainParsing'
+          title: Items
+          type: array
+      title: ExplainResult
+      type: object
+    FontAlias:
+      enum:
+      - DEFAULT_FONT
+      - BIRCHBARK_FONT
+      - OLD_RUS_ORTHLIB_FONT
+      - MID_RUS_ORTHLIB_CIV_FONT
+      title: FontAlias
+      type: string
+    FormSectionValue:
+      properties:
+        conditionValues:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ConditionValue'
+            type: array
+          - type: 'null'
+          title: Conditionvalues
+        subsectionValues:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/FormSectionValue'
+            type: array
+          - type: 'null'
+          title: Subsectionvalues
+      title: FormSectionValue
+      type: object
+    IntConditionValue:
+      properties:
+        v:
+          title: V
+          type: integer
+      required:
+      - v
+      title: IntConditionValue
+      type: object
+    IntRangeConditionValue:
+      properties:
+        begin:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Begin
+        end:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: End
+        matching:
+          allOf:
+          - $ref: '#/components/schemas/IntRangeMathingType'
+          default: INT_RANGE_MATCHING_TYPE_DEFAULT
+        zeroNotAllowed:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: false
+          title: Zeronotallowed
+      title: IntRangeConditionValue
+      type: object
+    IntRangeMathingType:
+      enum:
+      - INT_RANGE_MATCHING_TYPE_DEFAULT
+      - INT_RANGE_INCLUDE
+      - INT_RANGE_INTERSECT
+      - INT_RANGE_EQUAL
+      title: IntRangeMathingType
+      type: string
+    LangInfo:
+      properties:
+        lang:
+          title: Lang
+          type: string
+        translator:
+          title: Translator
+          type: string
+        transliteration:
+          default: false
+          title: Transliteration
+          type: boolean
+        version:
+          title: Version
+          type: integer
+      required:
+      - lang
+      title: LangInfo
+      type: object
+    LexGramQuery:
+      properties:
+        corpus:
+          $ref: '#/components/schemas/Corpus'
+          description: Корпус, в котором осуществляется поиск и анализ. По умолчанию
+            основной корпус
+          title: Корпус
+        lexGramm:
+          $ref: '#/components/schemas/SearchFormValue'
+          title: Форма поиска
+        params:
+          allOf:
+          - $ref: '#/components/schemas/SearchParams'
+          title: Параметры поиска
+        subcorpus:
+          anyOf:
+          - $ref: '#/components/schemas/SearchFormValue'
+          - type: 'null'
+          title: Подкорпус
+      required:
+      - corpus
+      - lexGramm
+      title: LexGramQuery
+      type: object
+    LineInfo:
+      properties:
+        formula:
+          title: Formula
+          type: string
+        size:
+          title: Size
+          type: string
+      required:
+      - size
+      - formula
+      title: LineInfo
+      type: object
+    MorphemeResult:
+      properties:
+        isNeural:
+          default: false
+          description: Используется ли нейросеть для разбора
+          title: Isneural
+          type: boolean
+        morphemes:
+          description: Морфемы
+          items:
+            additionalProperties: true
+            type: object
+          title: Morphemes
+          type: array
+      required:
+      - morphemes
+      title: MorphemeResult
+      type: object
+    MorphemeType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      title: MorphemeType
+      type: integer
+    Option:
+      properties:
+        comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment
+        suboptions:
+          anyOf:
+          - $ref: '#/components/schemas/OptionBlock'
+          - type: 'null'
+        title:
+          title: Title
+          type: string
+        value:
+          title: Value
+          type: string
+      required:
+      - title
+      - value
+      title: Option
+      type: object
+    OptionBlock:
+      properties:
+        andWithGroup:
+          title: Andwithgroup
+          type: boolean
+        combine:
+          $ref: '#/components/schemas/Combine'
+        hasHelpText:
+          title: Hashelptext
+          type: boolean
+        options:
+          items:
+            $ref: '#/components/schemas/Option'
+          title: Options
+          type: array
+        replace_all_group:
+          title: Replace All Group
+          type: boolean
+        title:
+          title: Title
+          type: string
+      required:
+      - title
+      - options
+      - combine
+      - replace_all_group
+      - andWithGroup
+      - hasHelpText
+      title: OptionBlock
+      type: object
+    PaginationParams:
+      properties:
+        docsPerPage:
+          default: 0
+          title: Число документов на одной странице
+          type: integer
+        page:
+          default: 0
+          title: Номер страницы
+          type: integer
+        snippetsPerDoc:
+          default: 0
+          title: Максимум примеров в тексте
+          type: integer
+        snippetsPerPage:
+          default: 0
+          description: Применимо в режиме KWIC
+          title: Число сниппетов на одной странице
+          type: integer
+      title: PaginationParams
+      type: object
     PortraitQuery:
       properties:
         corpus:
@@ -152,6 +829,71 @@ components:
           title: Statfields
       title: PortraitQuery
       type: object
+    PortraitResult:
+      properties:
+        concordanceData:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Concordancedata
+        firstMentionData:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Firstmentiondata
+        frequencyData:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Frequencydata
+        morphemeData:
+          anyOf:
+          - $ref: '#/components/schemas/MorphemeResult'
+          - type: 'null'
+        possiblePos:
+          description: Доступные части речи
+          items:
+            type: string
+          title: Possiblepos
+          type: array
+        propsData:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Propsdata
+        similarData:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SimilarDataResult'
+            type: array
+          - type: 'null'
+          title: Similardata
+        sketchData:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Sketchdata
+        statsData:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Statsdata
+        wordformsData:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Wordformsdata
+      required:
+      - possiblePos
+      title: PortraitResult
+      type: object
     PortraitResultTypeEnum:
       enum:
       - PORTRAIT_WORD_INFO
@@ -167,6 +909,277 @@ components:
       - PORTRAIT_FIRST_MENTION
       title: PortraitResultTypeEnum
       type: string
+    ReadabilityInfo:
+      properties:
+        indexAri:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Indexari
+        indexColemanLiau:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Indexcolemanliau
+        indexDaleChall:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Indexdalechall
+        indexFleschKincaid:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Indexfleschkincaid
+        indexSmog:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Indexsmog
+        level:
+          title: Level
+          type: string
+      required:
+      - level
+      title: ReadabilityInfo
+      type: object
+    ResultPagination:
+      properties:
+        maxAvailablePage:
+          default: 0
+          title: Maxavailablepage
+          type: integer
+        totalPageCount:
+          default: 0
+          title: Totalpagecount
+          type: integer
+      title: ResultPagination
+      type: object
+    ResultSorting:
+      properties:
+        currentSorting:
+          description: Может отличаться от той, что была передана в запросе, если
+            переданая сортировка является недопустимой
+          title: Сортировка, примененная к поиску
+          type: string
+      required:
+      - currentSorting
+      title: ResultSorting
+      type: object
+    SearchFormValue:
+      properties:
+        sectionValues:
+          items:
+            $ref: '#/components/schemas/FormSectionValue'
+          title: Sectionvalues
+          type: array
+      title: SearchFormValue
+      type: object
+    SearchParams:
+      properties:
+        pageParams:
+          anyOf:
+          - $ref: '#/components/schemas/PaginationParams'
+          - type: 'null'
+          title: Параметры пагинации
+        sampling:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Только в режиме сортировки по контексту и только в корпусах,
+            где разрешен сэмплинг
+          example: 0
+          title: Версия с прореживанием до 1000 вхождений
+        seed:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Случайное число, влияющее на устойчивость случайной сортировки
+            результатов
+          example: 57945
+          title: Seed
+        sort:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Список доступных сортировок уточняется в конфиге корпуса. Если
+            не передать, будет использована сортировка по-умолчанию
+          title: Сортировка
+      title: SearchParams
+      type: object
+    SimilarDataResult:
+      properties:
+        category:
+          description: Список категорий зависит от выбранного корпуса, но чаще всего
+            представляет собой интерва дат, например 1940-1960
+          title: Категория сравнения слов
+          type: string
+        values:
+          description: Слова и их веса
+          items:
+            $ref: '#/components/schemas/SimilarDataValue'
+          title: Values
+          type: array
+      required:
+      - category
+      - values
+      title: SimilarDataResult
+      type: object
+    SimilarDataValue:
+      properties:
+        weight:
+          description: Вес слова
+          title: Weight
+          type: number
+        word:
+          description: Слово
+          title: Word
+          type: string
+      required:
+      - word
+      - weight
+      title: SimilarDataValue
+      type: object
+    SketchDifferenceQuery:
+      properties:
+        corpus:
+          allOf:
+          - $ref: '#/components/schemas/Corpus'
+          default:
+            lang: null
+            type: MAIN
+          description: Корпус, в котором осуществляется поиск и анализ. По умолчанию
+            основной корпус
+          title: Корпус
+        lemma_1:
+          description: Искомая лексема (обязательно в словарной форме). В Портрете
+            слова нельзя искать больше одной леммы. Также недопустимо использование
+            операторов - таких, как * или -.
+          example: колкий
+          minLength: 1
+          title: Первая лемма для сравнения
+          type: string
+        lemma_2:
+          description: Искомая лексема (обязательно в словарной форме). В Портрете
+            слова нельзя искать больше одной леммы. Также недопустимо использование
+            операторов - таких, как * или -.
+          example: колючий
+          minLength: 1
+          title: вторая лемма для сравнения
+          type: string
+        pos:
+          example: A
+          title: Часть речи
+          type: string
+      title: SketchDifferenceQuery
+      type: object
+    SketchDifferenceResult:
+      properties:
+        collocates:
+          default: []
+          items:
+            additionalProperties: true
+            type: object
+          title: Collocates
+          type: array
+        differenceLabels:
+          default: []
+          items:
+            type: string
+          title: Differencelabels
+          type: array
+        hits:
+          default: []
+          items:
+            type: integer
+          title: Hits
+          type: array
+        keys:
+          default: []
+          items:
+            type: string
+          title: Keys
+          type: array
+      title: SketchDifferenceResult
+      type: object
+    SnippetGroup:
+      properties:
+        leftSnippets:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Leftsnippets
+        snippets:
+          items:
+            $ref: '#/components/schemas/ConcordanceSnippet'
+          title: Snippets
+          type: array
+      required:
+      - snippets
+      title: SnippetGroup
+      type: object
+    SpeakerInfo:
+      properties:
+        age:
+          title: Age
+          type: string
+        birth:
+          title: Birth
+          type: string
+        name:
+          title: Name
+          type: string
+        profession:
+          title: Profession
+          type: string
+        role:
+          title: Role
+          type: string
+        sex:
+          anyOf:
+          - $ref: '#/components/schemas/TranslateString'
+          - type: 'null'
+      title: SpeakerInfo
+      type: object
+    StatValues:
+      properties:
+        clipCount:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Clipcount
+        collocationCount:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Collocationcount
+        ngramCount:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Ngramcount
+        sentenceCount:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Sentencecount
+        textCount:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Textcount
+        wordUsageCount:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Wordusagecount
+        wordUsageSampledCount:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Wordusagesampledcount
+      title: StatValues
+      type: object
     StatValuesSchema:
       properties:
         sentenceCount:
@@ -186,6 +1199,35 @@ components:
           title: Wordusagecount
       title: StatValuesSchema
       type: object
+    SyntaxStructure:
+      properties:
+        regular:
+          title: Regular
+          type: string
+        split:
+          title: Split
+          type: string
+      required:
+      - regular
+      - split
+      title: SyntaxStructure
+      type: object
+    TextConditionValue:
+      properties:
+        v:
+          title: V
+          type: string
+      required:
+      - v
+      title: TextConditionValue
+      type: object
+    TranslateString:
+      properties:
+        v:
+          title: V
+          type: string
+      title: TranslateString
+      type: object
     User:
       properties:
         email:
@@ -195,56 +1237,144 @@ components:
       - email
       title: User
       type: object
+    Word:
+      properties:
+        displayParams:
+          anyOf:
+          - $ref: '#/components/schemas/WordDisplayParams'
+          - type: 'null'
+        source:
+          anyOf:
+          - $ref: '#/components/schemas/WordSource'
+          - type: 'null'
+        text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: ''
+          title: Text
+        type:
+          $ref: '#/components/schemas/WordType'
+        wordExplainInfo:
+          anyOf:
+          - $ref: '#/components/schemas/ExplainResult'
+          - type: 'null'
+      required:
+      - type
+      title: Word
+      type: object
+    WordDisplayParams:
+      properties:
+        bold:
+          default: false
+          title: Bold
+          type: boolean
+        emm:
+          default: false
+          title: Emm
+          type: boolean
+        fontAlias:
+          anyOf:
+          - $ref: '#/components/schemas/FontAlias'
+          - type: 'null'
+        hit:
+          default: false
+          title: Hit
+          type: boolean
+        italic:
+          default: false
+          title: Italic
+          type: boolean
+        obsc:
+          default: false
+          title: Obsc
+          type: boolean
+        sub:
+          default: false
+          title: Sub
+          type: boolean
+        sup:
+          default: false
+          title: Sup
+          type: boolean
+        underline:
+          default: false
+          title: Underline
+          type: boolean
+        useLine:
+          default: false
+          title: Useline
+          type: boolean
+      title: WordDisplayParams
+      type: object
+    WordSequence:
+      properties:
+        blockquote:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Blockquote
+        lineInfo:
+          anyOf:
+          - $ref: '#/components/schemas/LineInfo'
+          - type: 'null'
+        readabilityInfo:
+          anyOf:
+          - $ref: '#/components/schemas/ReadabilityInfo'
+          - type: 'null'
+        speakerInfo:
+          anyOf:
+          - $ref: '#/components/schemas/SpeakerInfo'
+          - type: 'null'
+        words:
+          items:
+            $ref: '#/components/schemas/Word'
+          title: Words
+          type: array
+      required:
+      - words
+      title: WordSequence
+      type: object
+    WordSource:
+      properties:
+        docSource:
+          anyOf:
+          - $ref: '#/components/schemas/DocSource'
+          - type: 'null'
+        sentId:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          default: 0
+          title: Sentid
+        wordId:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          default: 0
+          title: Wordid
+      title: WordSource
+      type: object
+    WordType:
+      enum:
+      - WORD_TYPE_DEFAULT
+      - WORD
+      - PLAIN
+      title: WordType
+      type: string
   securitySchemes:
-    AsyncAuthBearer:
+    AsyncAPIKeyAuth:
       scheme: bearer
       type: http
 info:
   description: API для работы с Национальным корпусом русского языка
   title: НКРЯ API
-  version: 1.0.0
+  version: 1.0.2
 openapi: 3.1.0
 paths:
-  /api/v1/auth/check-authenticated/:
+  /api/v1/attrs/:
     get:
-      description: Отправив запрос на этот эндпоинт, можно проверить, авторизован
-        ли вы или нет
-      operationId: ruscorpora_public_api_v1_auth_api_is_authenticated
-      parameters: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                title: Response
-                type: boolean
-          description: OK
-      security:
-      - AsyncAuthBearer: []
-      summary: Проверка авторизации
-      tags:
-      - Авторизация
-  /api/v1/auth/me/:
-    get:
-      operationId: ruscorpora_public_api_v1_auth_api_me
-      parameters: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-          description: OK
-      security:
-      - AsyncAuthBearer: []
-      summary: Получение информации о пользователе
-      tags:
-      - Авторизация
-  /api/v1/config/:
-    get:
-      description: Отправив запрос на этот эндпоинт, можно проверить, авторизован
-        ли вы или нет
-      operationId: ruscorpora_public_api_v1_config_api_corpora_config
+      operationId: get-attrs-list
       parameters:
       - description: Идентификатор корпуса
         examples:
@@ -260,22 +1390,217 @@ paths:
         schema:
           description: Идентификатор корпуса
           examples:
-            default:
-              summary: Основной корпус
-              value: '{"type":"MAIN"}'
-            para-eng:
-              summary: Параллельный английский корпус
-              value: '{"type":"PARA","lang":"eng"}'
+          - name: default
+            summary: Основной корпус
+            value: '{"type":"MAIN"}'
+          - name: para-eng
+            summary: Параллельный английский корпус
+            value: '{"type":"PARA","lang":"eng"}'
           title: Corpus
           type: string
       responses:
         '200':
           description: OK
       security:
-      - AsyncAuthBearer: []
+      - AsyncAPIKeyAuth: []
+      summary: Список атрибутов корпуса
+      tags:
+      - Атрибуты
+  /api/v1/attrs/{attr_name}:
+    get:
+      operationId: get-attr-values
+      parameters:
+      - description: Идентификатор корпуса
+        examples:
+          default:
+            summary: Основной корпус
+            value: '{"type":"MAIN"}'
+          para-eng:
+            summary: Параллельный английский корпус
+            value: '{"type":"PARA","lang":"eng"}'
+        in: query
+        name: corpus
+        required: true
+        schema:
+          description: Идентификатор корпуса
+          examples:
+          - name: default
+            summary: Основной корпус
+            value: '{"type":"MAIN"}'
+          - name: para-eng
+            summary: Параллельный английский корпус
+            value: '{"type":"PARA","lang":"eng"}'
+          title: Corpus
+          type: string
+      - description: Название атрибута
+        example: text_orthography
+        in: query
+        name: attr_name
+        required: true
+        schema:
+          description: Название атрибута
+          example: text_orthography
+          title: Attr Name
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - AsyncAPIKeyAuth: []
+      summary: Значения атрибута
+      tags:
+      - Атрибуты
+  /api/v1/auth/check-authenticated/:
+    get:
+      description: Отправив запрос на этот эндпоинт, можно проверить, авторизован
+        ли вы или нет
+      operationId: ruscorpora_public_api_v1_auth_api_is_authenticated
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response
+                type: boolean
+          description: OK
+      security:
+      - AsyncAPIKeyAuth: []
+      summary: Проверка авторизации
+      tags:
+      - Авторизация
+  /api/v1/auth/me/:
+    get:
+      operationId: ruscorpora_public_api_v1_auth_api_me
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+      security:
+      - AsyncAPIKeyAuth: []
+      summary: Получение информации о пользователе
+      tags:
+      - Авторизация
+  /api/v1/config/:
+    get:
+      description: Отправив запрос на этот эндпоинт, можно проверить, авторизован
+        ли вы или нет
+      operationId: get-corpora-config
+      parameters:
+      - description: Идентификатор корпуса
+        examples:
+          default:
+            summary: Основной корпус
+            value: '{"type":"MAIN"}'
+          para-eng:
+            summary: Параллельный английский корпус
+            value: '{"type":"PARA","lang":"eng"}'
+        in: query
+        name: corpus
+        required: true
+        schema:
+          description: Идентификатор корпуса
+          examples:
+          - name: default
+            summary: Основной корпус
+            value: '{"type":"MAIN"}'
+          - name: para-eng
+            summary: Параллельный английский корпус
+            value: '{"type":"PARA","lang":"eng"}'
+          title: Corpus
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - AsyncAPIKeyAuth: []
       summary: Конфиг корпуса
       tags:
       - Параметры корпуса
+  /api/v1/lex-gramm/concordance:
+    get:
+      operationId: lex-gramm-concordance
+      parameters:
+      - examples:
+          default:
+            summary: Кот на расстояние -1:1 от глагола
+            value: '{"corpus":{"type":"MAIN"},"lexGramm":{"sectionValues":[{"subsectionValues":[{"conditionValues":[{"fieldName":"lex","text":{"v":"кот"}}]},{"conditionValues":[{"fieldName":"gramm","text":{"v":"V"}},{"fieldName":"dist","intRange":{"begin":-1,"end":1}}]}]}]}}'
+        in: query
+        name: query
+        required: true
+        schema:
+          examples:
+          - name: default
+            summary: Кот на расстояние -1:1 от глагола
+            value: '{"corpus":{"type":"MAIN"},"lexGramm":{"sectionValues":[{"subsectionValues":[{"conditionValues":[{"fieldName":"lex","text":{"v":"кот"}}]},{"conditionValues":[{"fieldName":"gramm","text":{"v":"V"}},{"fieldName":"dist","intRange":{"begin":-1,"end":1}}]}]}]}}'
+          title: Query
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - AsyncAPIKeyAuth: []
+      summary: Конкорданс поиск
+      tags:
+      - Лексико-грамматический поиск
+    post:
+      operationId: lex-gramm-concordance-as-post
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LexGramQuery'
+              example: '{"corpus":{"type":"MAIN"},"lexGramm":{"sectionValues":[{"subsectionValues":[{"conditionValues":[{"fieldName":"lex","text":{"v":"кот"}}]},{"conditionValues":[{"fieldName":"gramm","text":{"v":"V"}},{"fieldName":"dist","intRange":{"begin":-1,"end":1}}]}]}]}}'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConcordanceQueryResult'
+          description: OK
+      summary: Конкорданс поиск [POST]
+      tags:
+      - Лексико-грамматический поиск
+  /api/v1/lex-gramm/search-form:
+    get:
+      operationId: lex-gramm-search-form
+      parameters:
+      - description: Поисковая форма
+        examples:
+          default:
+            summary: Основной корпус
+            value: '{"type":"MAIN"}'
+          para-eng:
+            summary: Параллельный английский корпус
+            value: '{"type":"PARA","lang":"eng"}'
+        in: query
+        name: corpus
+        required: true
+        schema:
+          description: Поисковая форма
+          examples:
+          - name: default
+            summary: Основной корпус
+            value: '{"type":"MAIN"}'
+          - name: para-eng
+            summary: Параллельный английский корпус
+            value: '{"type":"PARA","lang":"eng"}'
+          title: Corpus
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - AsyncAPIKeyAuth: []
+      summary: Поисковая форма
+      tags:
+      - Лексико-грамматический поиск
   /api/v1/stats/:
     get:
       description: 'Возвращает статистику по выбранному корпусу.
@@ -297,12 +1622,12 @@ paths:
         schema:
           description: Идентификатор корпуса
           examples:
-            default:
-              summary: Основной корпус
-              value: '{"type":"MAIN"}'
-            para-eng:
-              summary: Параллельный английский корпус
-              value: '{"type":"PARA","lang":"eng"}'
+          - name: default
+            summary: Основной корпус
+            value: '{"type":"MAIN"}'
+          - name: para-eng
+            summary: Параллельный английский корпус
+            value: '{"type":"PARA","lang":"eng"}'
           title: Corpus
           type: string
       responses:
@@ -313,7 +1638,7 @@ paths:
                 $ref: '#/components/schemas/CorpusStatSchema'
           description: OK
       security:
-      - AsyncAuthBearer: []
+      - AsyncAPIKeyAuth: []
       summary: Статистика в выбранном корпусе
       tags:
       - Статистика
@@ -332,23 +1657,27 @@ paths:
       - examples:
           default:
             summary: Печь в Основном корпусе
-            value: '{"lemma":"печь","corpus":{"type":"MAIN"},"seed":-377049459,"resultType":["PORTRAIT_WORD_INFO"]}'
+            value: '{"lemma":"печь","corpus":{"type":"MAIN"},"seed":-765644708,"resultType":["PORTRAIT_WORD_INFO"]}'
         in: query
         name: query
         required: true
         schema:
           examples:
-            default:
-              summary: Печь в Основном корпусе
-              value: '{"lemma":"печь","corpus":{"type":"MAIN"},"seed":-377049459,"resultType":["PORTRAIT_WORD_INFO"]}'
+          - name: default
+            summary: Печь в Основном корпусе
+            value: '{"lemma":"печь","corpus":{"type":"MAIN"},"seed":-765644708,"resultType":["PORTRAIT_WORD_INFO"]}'
           title: Query
           type: string
       responses:
         '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortraitResult'
           description: OK
       security:
-      - AsyncAuthBearer: []
-      summary: Get Word Portrait
+      - AsyncAPIKeyAuth: []
+      summary: Портрет слова
       tags:
       - Портрет слова
     post:
@@ -362,10 +1691,69 @@ paths:
         required: true
       responses:
         '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortraitResult'
           description: OK
       security:
-      - AsyncAuthBearer: []
-      summary: Get Word Portrait As Post
+      - AsyncAPIKeyAuth: []
+      summary: Портрет слова [POST]
+      tags:
+      - Портрет слова
+  /api/v1/word-portrait/sketch-difference:
+    get:
+      description: Сравнение скетчей слова из портрета. Более подробную иформация
+        можно найти в [руководстве](https://ruscorpora.ru/page/tool-sketch-difference).
+      operationId: sketch-difference
+      parameters:
+      - examples:
+          default:
+            summary: Печь в Основном корпусе
+            value: '{"lemma_1":"будний","lemma_2":"будничный","corpus":{"type":"MAIN"},"pos":"A"}'
+        in: query
+        name: query
+        required: true
+        schema:
+          examples:
+          - name: default
+            summary: Печь в Основном корпусе
+            value: '{"lemma_1":"будний","lemma_2":"будничный","corpus":{"type":"MAIN"},"pos":"A"}'
+          title: Query
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SketchDifferenceResult'
+          description: OK
+      security:
+      - AsyncAPIKeyAuth: []
+      summary: Сравнение скетчей слова
+      tags:
+      - Портрет слова
+    post:
+      description: Сравнение скетчей слова из портрета. Более подробную иформация
+        можно найти в [руководстве](https://ruscorpora.ru/page/tool-sketch-difference).
+      operationId: sketch-difference-as-post
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SketchDifferenceQuery'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SketchDifferenceResult'
+          description: OK
+      security:
+      - AsyncAPIKeyAuth: []
+      summary: Сравнение скетчей слова [POST]
       tags:
       - Портрет слова
 servers: []

@@ -43,3 +43,19 @@ items:
             href: word-portrait/use-cases/first-mention.md
           # - name: Толкование
           #   href: word-portrait/use-cases/meaning.md
+  - name: Поиск
+    href: search/index.md
+    items:
+      - name: Общая структура
+        href: search/common-format.md
+      - name: Формулы
+        href: search/formula-rule.md
+      - name: Лексико-грамматический
+        href: search/lex-gramm.md
+      - name: Подкорпус
+        href: search/subcorpus.md  
+  - name: Результаты поиска
+    href: results/index.md
+    items:
+      - name: Конкорданс
+        href: results/concordance.md
