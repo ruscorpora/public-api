@@ -10,7 +10,7 @@
 - какие параметры вывода используются.
 
 ## Пример
-Пример лексико-грамматического запроса
+Пример лексико-грамматического запроса:
 ```json
 {
   "lexGramm":{
@@ -82,11 +82,11 @@ class SearchFormValue(BaseModel):
 Фактическое заполнение данными зависит от типа формы и корпуса. Например, условия подкорпуса заполняются в структуре: `subcorpus > sectionValues > [0] > conditionValues`. О деталях заполнения каждого типа поиска смотрите в соответствующем разделе руководства.
 
 Может содержать:
-- `conditionValues` — набор конкретных условий поиска
+- `conditionValues` — набор конкретных условий поиска;
 - `subsectionValues` — вложенные секции, позволяющие строить иерархические запросы.
   
 **Поля:**
-- `conditionValues` — список условий поиска ([ConditionValue](#conditionValue)).  
+- `conditionValues` — список условий поиска ([ConditionValue](#conditionValue));
 - `subsectionValues` — список вложенных подразделов (FormSectionValue).  
 
 ---
@@ -106,12 +106,12 @@ class SearchFormValue(BaseModel):
 ⚠️ Важно: должно быть заполнено хотя бы одно из значений.  
 
 **Поля:**
-- `fieldName` — имя атрибута, по которому выполняется поиск.  
-- [text](#textconditionvalue) — условие по текстовому значению.  
-- [check](#checkconditionvalue) — булево условие (например, признак наличия/отсутствия).  
-- [int](#intconditionvalue) — условие по конкретному числовому значению.  
-- [intRange](#intrangeconditionvalue) — условие по диапазону числовых значений.  
-- [date](#dateconditionvalue) — условие по конкретной дате.  
+- `fieldName` — имя атрибута, по которому выполняется поиск;
+- [text](#textconditionvalue) — условие по текстовому значению;
+- [check](#checkconditionvalue) — булево условие (например, признак наличия/отсутствия);
+- [int](#intconditionvalue) — условие по конкретному числовому значению;
+- [intRange](#intrangeconditionvalue) — условие по диапазону числовых значений;
+- [date](#dateconditionvalue) — условие по конкретной дате;
 - [dateRange](#daterangeconditionvalue) — условие по диапазону дат.  
 
 ---
@@ -160,7 +160,7 @@ class SearchFormValue(BaseModel):
 - `INT_RANGE_INCLUDE` — включает диапазон.  
 - `INT_RANGE_INTERSECT` — пересечение диапазонов.  
 - `INT_RANGE_EQUAL` — равенство диапазонов. 
-- 
+
 ### PaginationParams
 
 Параметры постраничного вывода результатов.  
