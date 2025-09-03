@@ -1,0 +1,15 @@
+title: Виды выдачи
+description:
+  - В данном руководстве описаны доступные виды выдачи в API НКРЯ. Они могут быть переиспользоваться в различных частях, поэтому собраны в единый справочник 
+links:
+  - title: Конкорданс
+    href: concordance
+    description: Примеры словоупотрбления сгруппированные по текстам, в которых они найдены
+  - title: KWIC
+    description: TBA
+  - title: Статистика
+    description: TBA
+  - title: Частотность
+    description: TBA
+  - title: N-граммы
+    description: TBA
