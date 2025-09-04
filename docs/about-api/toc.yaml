@@ -50,7 +50,7 @@ items:
         href: search/common-format.md
       - name: Формулы
         href: search/formula-rule.md
-      - name: Лексико-грамматический
+      - name: Лексико-грамматический поиск
         href: search/lex-gramm.md
       - name: Подкорпус
         href: search/subcorpus.md  
