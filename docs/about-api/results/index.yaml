@@ -1,0 +1,15 @@
+title: Виды выдачи
+description:
+  - Это руководство описывает доступные форматы ответа API НКРЯ. Поскольку они используются повторно в разных разделах документации, мы собрали их в едином справочнике.
+links:
+  - title: Конкорданс
+    href: concordance
+    description: Вид выдачи, при котором примеры сгруппированы по текстам, в которых они найдены
+  - title: KWIC
+    description: TBA
+  - title: Статистика
+    description: TBA
+  - title: Частотность
+    description: TBA
+  - title: N-граммы
+    description: TBA
