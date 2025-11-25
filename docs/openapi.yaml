@@ -764,6 +764,29 @@ components:
           type: integer
       title: PaginationParams
       type: object
+    ParaLexGramQuery:
+      properties:
+        corpus:
+          $ref: '#/components/schemas/Corpus'
+          description: Корпус, в котором осуществляется поиск и анализ
+          title: Корпус
+        paraLexGramm:
+          $ref: '#/components/schemas/SearchFormValue'
+          title: Форма поиска
+        params:
+          allOf:
+          - $ref: '#/components/schemas/SearchParams'
+          title: Параметры поиска
+        subcorpus:
+          anyOf:
+          - $ref: '#/components/schemas/SearchFormValue'
+          - type: 'null'
+          title: Подкорпус
+      required:
+      - corpus
+      - paraLexGramm
+      title: ParaLexGramQuery
+      type: object
     PortraitQuery:
       properties:
         corpus:
@@ -1390,12 +1413,12 @@ paths:
         schema:
           description: Идентификатор корпуса
           examples:
-          - name: default
-            summary: Основной корпус
-            value: '{"type":"MAIN"}'
-          - name: para-eng
-            summary: Параллельный английский корпус
-            value: '{"type":"PARA","lang":"eng"}'
+            default:
+              summary: Основной корпус
+              value: '{"type":"MAIN"}'
+            para-eng:
+              summary: Параллельный английский корпус
+              value: '{"type":"PARA","lang":"eng"}'
           title: Corpus
           type: string
       responses:
@@ -1424,22 +1447,22 @@ paths:
         schema:
           description: Идентификатор корпуса
           examples:
-          - name: default
-            summary: Основной корпус
-            value: '{"type":"MAIN"}'
-          - name: para-eng
-            summary: Параллельный английский корпус
-            value: '{"type":"PARA","lang":"eng"}'
+            default:
+              summary: Основной корпус
+              value: '{"type":"MAIN"}'
+            para-eng:
+              summary: Параллельный английский корпус
+              value: '{"type":"PARA","lang":"eng"}'
           title: Corpus
           type: string
       - description: Название атрибута
-        example: text_orthography
-        in: query
+        example: syntax
+        in: path
         name: attr_name
         required: true
         schema:
           description: Название атрибута
-          example: text_orthography
+          example: syntax
           title: Attr Name
           type: string
       responses:
@@ -1505,12 +1528,12 @@ paths:
         schema:
           description: Идентификатор корпуса
           examples:
-          - name: default
-            summary: Основной корпус
-            value: '{"type":"MAIN"}'
-          - name: para-eng
-            summary: Параллельный английский корпус
-            value: '{"type":"PARA","lang":"eng"}'
+            default:
+              summary: Основной корпус
+              value: '{"type":"MAIN"}'
+            para-eng:
+              summary: Параллельный английский корпус
+              value: '{"type":"PARA","lang":"eng"}'
           title: Corpus
           type: string
       responses:
@@ -1534,9 +1557,9 @@ paths:
         required: true
         schema:
           examples:
-          - name: default
-            summary: Кот на расстояние -1:1 от глагола
-            value: '{"corpus":{"type":"MAIN"},"lexGramm":{"sectionValues":[{"subsectionValues":[{"conditionValues":[{"fieldName":"lex","text":{"v":"кот"}}]},{"conditionValues":[{"fieldName":"gramm","text":{"v":"V"}},{"fieldName":"dist","intRange":{"begin":-1,"end":1}}]}]}]}}'
+            default:
+              summary: Кот на расстояние -1:1 от глагола
+              value: '{"corpus":{"type":"MAIN"},"lexGramm":{"sectionValues":[{"subsectionValues":[{"conditionValues":[{"fieldName":"lex","text":{"v":"кот"}}]},{"conditionValues":[{"fieldName":"gramm","text":{"v":"V"}},{"fieldName":"dist","intRange":{"begin":-1,"end":1}}]}]}]}}'
           title: Query
           type: string
       responses:
@@ -1585,12 +1608,12 @@ paths:
         schema:
           description: Поисковая форма
           examples:
-          - name: default
-            summary: Основной корпус
-            value: '{"type":"MAIN"}'
-          - name: para-eng
-            summary: Параллельный английский корпус
-            value: '{"type":"PARA","lang":"eng"}'
+            default:
+              summary: Основной корпус
+              value: '{"type":"MAIN"}'
+            para-eng:
+              summary: Параллельный английский корпус
+              value: '{"type":"PARA","lang":"eng"}'
           title: Corpus
           type: string
       responses:
@@ -1601,6 +1624,96 @@ paths:
       summary: Поисковая форма
       tags:
       - Лексико-грамматический поиск
+  /api/v1/para-lex-gramm/concordance:
+    get:
+      operationId: para-lex-gramm-concordance
+      parameters:
+      - examples:
+          default:
+            description: "\nПочти полная копия обычного лексико-грамматического запроса.\
+              \ \nПринципиальное отличие - необходимо заполнить 2 формы для каждого\
+              \ из языков, в каждой искомый язык. Первая форма для иностранного языка.\n"
+            summary: Кот и cat
+            value: '{"corpus":{"type":"PARA","lang":"eng"},"paraLexGramm":{"sectionValues":[{"conditionValues":[{"fieldName":"lang_search","text":{"v":"eng"}}],"subsectionValues":[{"conditionValues":[{"fieldName":"lex","text":{"v":"cat"}}]}]},{"conditionValues":[{"fieldName":"lang_search","text":{"v":"rus"}}],"subsectionValues":[{"conditionValues":[{"fieldName":"lex","text":{"v":"кот"}}]}]}]}}'
+        in: query
+        name: query
+        required: true
+        schema:
+          examples:
+            default:
+              description: "\nПочти полная копия обычного лексико-грамматического\
+                \ запроса. \nПринципиальное отличие - необходимо заполнить 2 формы\
+                \ для каждого из языков, в каждой искомый язык. Первая форма для иностранного\
+                \ языка.\n"
+              summary: Кот и cat
+              value: '{"corpus":{"type":"PARA","lang":"eng"},"paraLexGramm":{"sectionValues":[{"conditionValues":[{"fieldName":"lang_search","text":{"v":"eng"}}],"subsectionValues":[{"conditionValues":[{"fieldName":"lex","text":{"v":"cat"}}]}]},{"conditionValues":[{"fieldName":"lang_search","text":{"v":"rus"}}],"subsectionValues":[{"conditionValues":[{"fieldName":"lex","text":{"v":"кот"}}]}]}]}}'
+          title: Query
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - AsyncAPIKeyAuth: []
+      summary: Конкорданс поиск
+      tags:
+      - Лексико-грамматический поиск
+      - Двуязычный поиск
+    post:
+      operationId: para-lex-gramm-concordance-as-post
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParaLexGramQuery'
+              example: '{"corpus":{"type":"PARA","lang":"eng"},"paraLexGramm":{"sectionValues":[{"conditionValues":[{"fieldName":"lang_search","text":{"v":"eng"}}],"subsectionValues":[{"conditionValues":[{"fieldName":"lex","text":{"v":"cat"}}]}]},{"conditionValues":[{"fieldName":"lang_search","text":{"v":"rus"}}],"subsectionValues":[{"conditionValues":[{"fieldName":"lex","text":{"v":"кот"}}]}]}]}}'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConcordanceQueryResult'
+          description: OK
+      summary: Конкорданс поиск [POST]
+      tags:
+      - Лексико-грамматический поиск
+      - Двуязычный поиск
+  /api/v1/para-lex-gramm/search-form:
+    get:
+      operationId: para-lex-gramm-search-form
+      parameters:
+      - description: Поисковая форма
+        examples:
+          default:
+            summary: Английский
+            value: '{"type":"PARA","lang":"eng"}'
+          para-bur:
+            summary: Бурятский
+            value: '{"type":"PARA","lang":"bua"}'
+        in: query
+        name: corpus
+        required: true
+        schema:
+          description: Поисковая форма
+          examples:
+            default:
+              summary: Английский
+              value: '{"type":"PARA","lang":"eng"}'
+            para-bur:
+              summary: Бурятский
+              value: '{"type":"PARA","lang":"bua"}'
+          title: Corpus
+          type: string
+      responses:
+        '200':
+          description: OK
+      security:
+      - AsyncAPIKeyAuth: []
+      summary: Поисковая форма
+      tags:
+      - Лексико-грамматический поиск
+      - Двуязычный поиск
   /api/v1/stats/:
     get:
       description: 'Возвращает статистику по выбранному корпусу.
@@ -1622,12 +1735,12 @@ paths:
         schema:
           description: Идентификатор корпуса
           examples:
-          - name: default
-            summary: Основной корпус
-            value: '{"type":"MAIN"}'
-          - name: para-eng
-            summary: Параллельный английский корпус
-            value: '{"type":"PARA","lang":"eng"}'
+            default:
+              summary: Основной корпус
+              value: '{"type":"MAIN"}'
+            para-eng:
+              summary: Параллельный английский корпус
+              value: '{"type":"PARA","lang":"eng"}'
           title: Corpus
           type: string
       responses:
@@ -1657,15 +1770,15 @@ paths:
       - examples:
           default:
             summary: Печь в Основном корпусе
-            value: '{"lemma":"печь","corpus":{"type":"MAIN"},"seed":-765644708,"resultType":["PORTRAIT_WORD_INFO"]}'
+            value: '{"lemma":"печь","corpus":{"type":"MAIN"},"seed":-1148773804,"resultType":["PORTRAIT_WORD_INFO"]}'
         in: query
         name: query
         required: true
         schema:
           examples:
-          - name: default
-            summary: Печь в Основном корпусе
-            value: '{"lemma":"печь","corpus":{"type":"MAIN"},"seed":-765644708,"resultType":["PORTRAIT_WORD_INFO"]}'
+            default:
+              summary: Печь в Основном корпусе
+              value: '{"lemma":"печь","corpus":{"type":"MAIN"},"seed":-1148773804,"resultType":["PORTRAIT_WORD_INFO"]}'
           title: Query
           type: string
       responses:
@@ -1716,9 +1829,9 @@ paths:
         required: true
         schema:
           examples:
-          - name: default
-            summary: Печь в Основном корпусе
-            value: '{"lemma_1":"будний","lemma_2":"будничный","corpus":{"type":"MAIN"},"pos":"A"}'
+            default:
+              summary: Печь в Основном корпусе
+              value: '{"lemma_1":"будний","lemma_2":"будничный","corpus":{"type":"MAIN"},"pos":"A"}'
           title: Query
           type: string
       responses:

@@ -52,8 +52,10 @@ items:
         href: search/formula-rule.md
       - name: Лексико-грамматический поиск
         href: search/lex-gramm.md
+      - name: Лексико-грамматический поиск на двух языках
+        href: search/para-lex-gramm.md
       - name: Подкорпус
-        href: search/subcorpus.md  
+        href: search/subcorpus.md
   - name: Результаты поиска
     href: results/index.yaml
     items:
